@@ -1,13 +1,12 @@
 const express = require("express");
+const multer = require("multer");
 
 const app = express();
+const upload = multer({ dest: "uploads/" });
 
 app.use(express.json());
+app.use(express.static("public"));
 
-// GET
-app.get("/", (req, res) => {
-    res.send("Node.js Server is Running");
-});
 
 // GET
 app.get("/students", (req, res) => {
@@ -32,6 +31,30 @@ app.patch("/updatestudents", (req, res) => {
 // DELETE
 app.delete("/deletestudents", (req, res) => {
     res.send("Student deleted");
+});
+
+app.post("/upload", upload.single("myfile"), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({
+            error: "No file selected."
+        });
+    }
+console.log(req.file.mimetype);
+    const isAllowed =
+    req.file.mimetype.startsWith("image/") ||
+    req.file.mimetype === "application/pdf" ||
+    req.file.mimetype === "application/octet-stream";
+
+    if (!isAllowed) {
+        return res.status(400).json({
+            error: "Only images and PDFs are allowed!"
+        });
+    }
+
+    res.json({
+        success: true,
+        name: req.file.originalname
+    });
 });
 
 const PORT = process.env.PORT || 8800;

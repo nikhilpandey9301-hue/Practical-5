@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "nodemon index.js"
-},
+    "start": "nodemon index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nikhilpandey9301-hue/Practical-5.git"
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/nikhilpandey9301-hue/Practical-5#readme",
   "dependencies": {
     "express": "^5.2.1",
+    "multer": "^2.3.0",
     "nodemon": "^3.1.14"
   }
 }
